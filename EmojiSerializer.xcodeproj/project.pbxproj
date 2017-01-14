@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F7723EE41E30D0BA00639515 /* EmojiParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7723EE31E30D0BA00639515 /* EmojiParser.swift */; };
 		F7829E5E1E29F76C0068B642 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7829E5D1E29F76C0068B642 /* main.swift */; };
+		F7829E651E29F7C70068B642 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7829E641E29F7C70068B642 /* Tools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F7723EE31E30D0BA00639515 /* EmojiParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiParser.swift; sourceTree = "<group>"; };
 		F7829E5A1E29F76C0068B642 /* EmojiSerializer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EmojiSerializer; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7829E5D1E29F76C0068B642 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F7829E641E29F7C70068B642 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				F7829E5D1E29F76C0068B642 /* main.swift */,
+				F7829E641E29F7C70068B642 /* Tools.swift */,
+				F7723EE31E30D0BA00639515 /* EmojiParser.swift */,
 			);
 			path = EmojiSerializer;
 			sourceTree = "<group>";
@@ -121,7 +127,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7723EE41E30D0BA00639515 /* EmojiParser.swift in Sources */,
 				F7829E5E1E29F76C0068B642 /* main.swift in Sources */,
+				F7829E651E29F7C70068B642 /* Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +261,7 @@
 				F7829E631E29F76C0068B642 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
