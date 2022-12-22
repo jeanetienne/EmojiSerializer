@@ -24,7 +24,7 @@ internal class EmojiParser {
             return dateFormatter
         }
     }
-    
+
     private var outputDateFormatter: ISO8601DateFormatter {
         get {
             let dateFormatter = ISO8601DateFormatter()
@@ -33,7 +33,7 @@ internal class EmojiParser {
             return dateFormatter
         }
     }
-    
+
     init(fileContent: String) {
         self.emojiRawData = fileContent
     }
@@ -68,8 +68,8 @@ internal class EmojiParser {
 
                 self.emojiMetadata["groups"] = groups
             } else if line.contains("fully-qualified"),
-                let emojiCharacter = self.parseEmojiCharacter(line: line),
-                let emojiDescription = self.parseEmojiDescription(line: line, group: currentGroup, subgroup: currentSubgroup) {
+                      let emojiCharacter = self.parseEmojiCharacter(line: line),
+                      let emojiDescription = self.parseEmojiDescription(line: line, group: currentGroup, subgroup: currentSubgroup) {
                 self.emojiData[emojiCharacter] = emojiDescription
             }
         }
@@ -88,47 +88,52 @@ internal class EmojiParser {
 
     private func parseEmojiCharacter(line: String) -> String? {
         guard let rangeOfHash = line.range(of: "# ") else {
-                return nil
+            return nil
         }
 
-        let emojiFraction = line.substring(from: rangeOfHash.upperBound)
+        let emojiFraction = line[rangeOfHash.upperBound...]
 
         if let rangeOfSpace = emojiFraction.range(of: " ") {
-            return emojiFraction.substring(to: rangeOfSpace.lowerBound)
+            return String(emojiFraction[..<rangeOfSpace.lowerBound])
         }
 
         return nil
     }
-    
+
     private func parseEmojiDescription(line: String, group: String, subgroup: String) -> [String: Any]? {
         guard let rangeOfSemicolon = line.range(of: ";"),
-            let rangeOfHash = line.range(of: "#") else {
-                return nil
+              let rangeOfHash = line.range(of: "#") else {
+            return nil
         }
 
-        let codePointsString = line.substring(to: rangeOfSemicolon.lowerBound).trimmingCharacters(in: .whitespacesAndNewlines)
-        let descriptionWithEmoji = line.substring(from: rangeOfHash.upperBound).trimmingCharacters(in: .whitespacesAndNewlines)
-        let index = descriptionWithEmoji.characters.index(of: " ")
-        let description = descriptionWithEmoji.substring(from: index!).trimmingCharacters(in: .whitespacesAndNewlines)
+        let codePointsString = line[..<rangeOfSemicolon.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
         let codePoints = codePointsString.components(separatedBy: " ")
+        let status = line[rangeOfSemicolon.upperBound..<rangeOfHash.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
 
-        return ["description": description.uppercaseFirstLetter,
+        let emojiData = line[rangeOfHash.upperBound...].trimmingCharacters(in: .whitespacesAndNewlines)
+        let firstSpaceIndex = emojiData.firstIndex(of: " ")!
+        let versionAndDescription = emojiData[firstSpaceIndex...].trimmingCharacters(in: .whitespacesAndNewlines)
+        let secondSpaceIndex = versionAndDescription.firstIndex(of: " ")!
+        let version = versionAndDescription[..<secondSpaceIndex].dropFirst(1)
+        let description = String(versionAndDescription[secondSpaceIndex...].trimmingCharacters(in: .whitespacesAndNewlines)).uppercaseFirstLetter
+
+        return ["description": description,
                 "category": group,
                 "subcategory": subgroup,
+                "status": status,
+                "emoji-version": version,
                 "code-points": codePoints] as [String: Any]
     }
-    
+
 }
 
 fileprivate extension String {
 
     var uppercaseFirstLetter: String {
-
         get {
-            let index = self.index(self.startIndex, offsetBy: 1)
-            return self.substring(to: index).uppercased() + self.substring(from: index)
+            let index = index(startIndex, offsetBy: 1)
+            return self[..<index].uppercased() + self[index...]
         }
-
     }
 
     func trimPrefix(_ prefix: String) -> String? {
