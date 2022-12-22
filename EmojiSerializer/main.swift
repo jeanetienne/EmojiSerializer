@@ -17,7 +17,7 @@ let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userD
 let emojiDataURL = documentsDirectoryURL.appendingPathComponent("emoji-data.plist")
 let emojiMetadataURL = documentsDirectoryURL.appendingPathComponent("emoji-metadata.plist")
 
-try write(propertylist: emojiParser.emojiData, atPath: emojiDataURL)
-try write(propertylist: emojiParser.emojiMetadata, atPath: emojiMetadataURL)
+try write(propertyList: emojiParser.emojiData, atPath: emojiDataURL)
+try write(propertyList: emojiParser.emojiMetadata, atPath: emojiMetadataURL)
 
 print("✅ Done!")

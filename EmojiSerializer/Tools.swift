@@ -22,8 +22,8 @@ func retrieveEmojiList(url: URL) -> String {
     return emojiListString
 }
 
-func write(propertylist: Any, atPath path: URL) throws {
-    let propertyListData = try PropertyListSerialization.data(fromPropertyList: propertylist,
+func write(propertyList: Any, atPath path: URL) throws {
+    let propertyListData = try PropertyListSerialization.data(fromPropertyList: propertyList,
                                                               format: .xml,
                                                               options: 0)
     try propertyListData.write(to: path,

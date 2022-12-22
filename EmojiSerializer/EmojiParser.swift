@@ -11,13 +11,11 @@ import Foundation
 internal class EmojiParser {
 
     var emojiData = [String: Any]()
-
     var emojiMetadata = [String: Any]()
 
     private var emojiRawData: String
 
     private var inputDateFormatter: DateFormatter {
-
         get {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd, HH:mm:ss ZZZZ"
@@ -25,18 +23,15 @@ internal class EmojiParser {
 
             return dateFormatter
         }
-        
     }
     
     private var outputDateFormatter: ISO8601DateFormatter {
-
         get {
             let dateFormatter = ISO8601DateFormatter()
             dateFormatter.timeZone = inputDateFormatter.timeZone
 
             return dateFormatter
         }
-
     }
     
     init(fileContent: String) {
@@ -46,10 +41,9 @@ internal class EmojiParser {
     func parse() {
         var currentGroup = ""
         var currentSubgroup = ""
-        self.emojiMetadata["groups"] = [String: [String]]()
+        emojiMetadata["groups"] = [String: [String]]()
 
         emojiRawData.enumerateLines { (rawLine, _) in
-
             let line = rawLine.trimmingCharacters(in: .whitespacesAndNewlines)
 
             if let trimmedLine = line.trimPrefix("# Date: ") {
@@ -80,7 +74,7 @@ internal class EmojiParser {
             }
         }
 
-        emojiMetadata["count"] = self.emojiData.count
+        emojiMetadata["count"] = emojiData.count
         emojiMetadata["parsed-at"] = outputDateFormatter.string(from: Date())
     }
 
@@ -138,7 +132,7 @@ fileprivate extension String {
     }
 
     func trimPrefix(_ prefix: String) -> String? {
-        return self.hasPrefix(prefix) ? self.replacingOccurrences(of: prefix, with: "") : nil
+        return hasPrefix(prefix) ? replacingOccurrences(of: prefix, with: "") : nil
     }
 
 }
